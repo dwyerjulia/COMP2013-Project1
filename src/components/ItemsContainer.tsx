@@ -3,13 +3,14 @@ import ItemCard from "./ItemCard";
 
 interface ItemsContainerProps {
     products: ClothingProduct[];
+    onAddToCheckout: (productId: number, quantity: number) => boolean;
 }
 
-function ItemsContainer({ products }: ItemsContainerProps) {
+function ItemsContainer({ products, onAddToCheckout, }: ItemsContainerProps) {
     return (
-        <div>
+        <div className="item-container">
             {products.map((product) => (
-                <ItemCard key={product.id} product={product} />
+                <ItemCard key={product.id} product={product} onAddToCheckout={onAddToCheckout} />
             ))}
         </div>
     );

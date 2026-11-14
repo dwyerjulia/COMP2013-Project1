@@ -1,18 +1,8 @@
-import { products } from "./data/data";
-import ItemsContainer from "./components/ItemsContainer";
+import ThriftHappens from "./components/ThriftHappens";
 import './App.css'
 
 function App() {
-  return (
-    <div>
-      <h1>Thrift Happens</h1>
-      <h2>Available Products</h2>
-
-      <p>Total Products: {products.length}</p>
-
-      <ItemsContainer products={products} />
-    </div>
-  )
+  return <ThriftHappens />
 }
 
 export default App

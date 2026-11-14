@@ -3,22 +3,31 @@ import type { ClothingProduct } from "../data/data";
 
 interface ItemCardProps {
     product: ClothingProduct;
+    onAddToCheckout: (productId: number, quantity: number) => boolean;
 }
 
-function ItemCard({ product }: ItemCardProps) {
+function ItemCard({ product, onAddToCheckout }: ItemCardProps) {
     const imagePath = `/${product.image}`;
 
     const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
 
 function increaseQuantity() {
-    if (selectedQuantity < product.quantity) {
-        setSelectedQuantity(selectedQuantity + 1);
-    }
+    setSelectedQuantity((current) =>
+    Math.min(current + 1, product.quantity));
 }
 
 function decreaseQuantity() {
-    if (selectedQuantity > 0) {
-        setSelectedQuantity(selectedQuantity - 1);
+    setSelectedQuantity((current) =>
+    Math.max(current - 1, 0));
+}
+
+function handleAddToCheckout() {
+    if (selectedQuantity > 0 && selectedQuantity <= product.quantity) {
+        const added = onAddToCheckout(product.id, selectedQuantity);
+
+        if (added) {
+            setSelectedQuantity(0);
+        }
     }
 }
 
@@ -50,7 +59,7 @@ function decreaseQuantity() {
                     -
                 </button>
 
-                <span>{selectedQuantity}</span>
+                <span>{Math.min(selectedQuantity, product.quantity)}</span>
 
                 <button onClick={increaseQuantity}
                 disabled={selectedQuantity === 0} >
@@ -60,7 +69,8 @@ function decreaseQuantity() {
             </div>
 
             <button className="add-button" 
-            disabled={product.quantity === 0}>
+            onClick={handleAddToCheckout}
+            disabled={product.quantity === 0 || selectedQuantity === 0 || selectedQuantity > product.quantity} >
                 {product.quantity === 0 ? "Out of Stock" : "Add to Checkout"}
             </button>
 
