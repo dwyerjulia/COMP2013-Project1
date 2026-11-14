@@ -28,3 +28,37 @@
 .item-card h3 {
   margin: 10px 0;
 }
+
+.quantity-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.quantity-selector button {
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.quantity-selector span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.quantity-selector button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.add-button {
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.add-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
