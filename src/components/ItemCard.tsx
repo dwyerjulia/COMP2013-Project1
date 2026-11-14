@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { ClothingProduct } from "../data/data";
 
 interface ItemCardProps {
@@ -6,6 +7,20 @@ interface ItemCardProps {
 
 function ItemCard({ product }: ItemCardProps) {
     const imagePath = `/${product.image}`;
+
+    const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
+
+function increaseQuantity() {
+    if (selectedQuantity < product.quantity) {
+        setSelectedQuantity(selectedQuantity + 1);
+    }
+}
+
+function decreaseQuantity() {
+    if (selectedQuantity > 0) {
+        setSelectedQuantity(selectedQuantity - 1);
+    }
+}
 
     return (
         <div className="item-card">
@@ -27,8 +42,31 @@ function ItemCard({ product }: ItemCardProps) {
                 : `Stock: ${product.quantity}`
                 }
             </p>
+
+            <div className="quantity-selector">
+
+                <button onClick={decreaseQuantity}
+                disabled={selectedQuantity === 0} >
+                    -
+                </button>
+
+                <span>{selectedQuantity}</span>
+
+                <button onClick={increaseQuantity}
+                disabled={selectedQuantity === 0} >
+                    +
+                </button>
+
+            </div>
+
+            <button className="add-button" 
+            disabled={product.quantity === 0}>
+                {product.quantity === 0 ? "Out of Stock" : "Add to Checkout"}
+            </button>
+
         </div>
     );
 }
+
 
 export default ItemCard;
