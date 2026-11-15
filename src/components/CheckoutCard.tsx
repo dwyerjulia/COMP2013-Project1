@@ -6,7 +6,7 @@ interface CheckoutCardProps {
     onRemove: (productId: number) => void;
 }
 
-const imageModules = ImageBitmapRenderingContext.meta.glob(
+const imageModules = import.meta.glob(
     "../assets/images/*.png", { eager: true, query: "?url", import: "default"}
 ) as Record<string, string>;
 
