@@ -112,21 +112,27 @@ function ThriftHappens() {
 
     return (
         <div className="thrift-happens">
-    <h1>Thrift Happens</h1>
+            <header className="store-header">
+                <h1>Thrift Happens</h1>
+                <p>Find your next favourite thrifted piece!</p>
+            </header>
 
-    <h2>Available Products</h2>
+        <div className="store-layout">
+            <main className="products-section">
+                <h2>Available Products</h2>
 
-    <ItemsContainer
-      products={shop.inventory}
-      onAddToCheckout={addToCheckout}
-    />
+                <ItemsContainer products={shop.inventory}
+                onAddToCheckout={addToCheckout} />
+            </main>
 
-    <CheckoutContainer
-      checkout={shop.checkout}
-      onRemove={removeFromCheckout}
-      onEmpty={emptyCheckout}
-    />
-  </div>
+            <aside className="checkout-section">
+                <CheckoutContainer
+                checkout={shop.checkout}
+                onRemove={removeFromCheckout}
+                onEmpty={emptyCheckout} />
+            </aside>
+        </div>
+        </div>
     );
 }
 

@@ -8,7 +8,7 @@ interface ItemsContainerProps {
 
 function ItemsContainer({ products, onAddToCheckout, }: ItemsContainerProps) {
     return (
-        <div className="item-container">
+        <div className="items-container">
             {products.map((product) => (
                 <ItemCard key={product.id} product={product} onAddToCheckout={onAddToCheckout} />
             ))}
