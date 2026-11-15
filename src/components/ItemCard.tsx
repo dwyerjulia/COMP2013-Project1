@@ -62,7 +62,7 @@ function handleAddToCheckout() {
                 <span>{Math.min(selectedQuantity, product.quantity)}</span>
 
                 <button onClick={increaseQuantity}
-                disabled={selectedQuantity === 0} >
+                disabled={selectedQuantity >= product.quantity}>
                     +
                 </button>
 
