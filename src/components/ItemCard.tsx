@@ -17,6 +17,8 @@ function ItemCard({ product, onAddToCheckout }: ItemCardProps) {
 
     const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
 
+    const safeQuantity = Math.min(selectedQuantity, product.quantity);
+
 function increaseQuantity() {
     setSelectedQuantity((current) =>
     Math.min(current + 1, product.quantity));
@@ -24,17 +26,17 @@ function increaseQuantity() {
 
 function decreaseQuantity() {
     setSelectedQuantity((current) =>
-    Math.max(current - 1, 0));
+    Math.max(Math.min(current, product.quantity) - 1, 0));
 }
 
 function handleAddToCheckout() {
-    if (selectedQuantity > 0 && selectedQuantity <= product.quantity) {
-        const added = onAddToCheckout(product.id, selectedQuantity);
+  if (safeQuantity > 0) {
+    const added = onAddToCheckout(product.id, safeQuantity);
 
-        if (added) {
-            setSelectedQuantity(0);
-        }
+    if (added) {
+      setSelectedQuantity(0);
     }
+  }
 }
 
     return (
@@ -61,14 +63,14 @@ function handleAddToCheckout() {
             <div className="quantity-selector">
 
                 <button onClick={decreaseQuantity}
-                disabled={selectedQuantity === 0} >
+                disabled={safeQuantity === 0} >
                     -
                 </button>
 
-                <span>{Math.min(selectedQuantity, product.quantity)}</span>
+                <span>{safeQuantity}</span>
 
                 <button onClick={increaseQuantity}
-                disabled={selectedQuantity >= product.quantity}>
+                disabled={safeQuantity >= product.quantity}>
                     +
                 </button>
 
@@ -76,7 +78,7 @@ function handleAddToCheckout() {
 
             <button className="add-button" 
             onClick={handleAddToCheckout}
-            disabled={product.quantity === 0 || selectedQuantity === 0 || selectedQuantity > product.quantity} >
+            disabled={ product.quantity === 0 || safeQuantity === 0 } >
                 {product.quantity === 0 ? "Out of Stock" : "Add to Checkout"}
             </button>
 
