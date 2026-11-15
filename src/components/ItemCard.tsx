@@ -6,8 +6,14 @@ interface ItemCardProps {
     onAddToCheckout: (productId: number, quantity: number) => boolean;
 }
 
+const imageModules = import.meta.glob(
+    "../assets/images/*.png",
+    { eager: true, query: "?url", import: "default"}
+) as Record<string, string>;
+
 function ItemCard({ product, onAddToCheckout }: ItemCardProps) {
-    const imagePath = `/${product.image}`;
+    const fileName = product.image.split("/").pop();
+    const imagePath = imageModules[`../assets/images/${fileName}`];
 
     const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
 
